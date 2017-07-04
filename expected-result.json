@@ -1,0 +1,18 @@
+{
+  "id": "string",
+  "created_at": "string",
+  "description": "string",
+  "user": {
+    "name": "string",
+    "screen_name": "string",
+    "profile_image_url_https": "string"
+  },
+  "retweet": {
+    "name": "string",
+    "screen_name": "string",
+    "profile_image_url_https": "string"
+  },
+  "photos": [
+    "media_url_https"
+  ]
+}
