@@ -8,5 +8,6 @@ view : State -> Html Msg
 view model =
     div []
         [
-          h1 [] [ text "Trainline tweet wall"]
+          h1 [] [ text "Trainline tweet wall"],
+          div [] [ text (toString <| List.length <| Maybe.withDefault [] model.tweets)]
         ]

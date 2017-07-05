@@ -2,21 +2,15 @@ module App exposing (..)
 
 import Html exposing (Html)
 import Model exposing (..)
-import Message exposing (..)
+import Message exposing (Msg, Msg(StreamTweets))
 import View exposing (..)
+import Subscriptions exposing (..)
+import Update exposing (update)
+
 
 init : ( State, Cmd Msg )
 init =
     ( { tweets = Maybe.Nothing }, Cmd.none )
-
-
-
----- UPDATE ----
-
-
-update : Msg -> State -> ( State, Cmd Msg )
-update msg model =
-    ( model, Cmd.none )
 
 
 
@@ -29,5 +23,5 @@ main =
         { view = view
         , init = init
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }

@@ -1,5 +1,5 @@
-module Message exposing (..)
+module Message exposing (Msg(StreamTweets))
 
 
 type Msg
-    = NoOp
+    = StreamTweets String
