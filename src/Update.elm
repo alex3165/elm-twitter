@@ -20,4 +20,7 @@ update msg model =
                             ( { model | tweets = Just [ val ] }, Cmd.none )
 
                 Err err ->
-                    ( model, Cmd.none )
+                    let
+                        a = Debug.log err
+                    in
+                        ( model, Cmd.none )

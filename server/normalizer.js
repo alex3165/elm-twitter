@@ -17,7 +17,7 @@ module.exports = (data) => {
   );
 
   return {
-    id: tweet.id,
+    id: tweet.id_str,
     created_at: tweet.created_at,
     description: tweet.text,
     user: normalizeUser(tweet.user),
