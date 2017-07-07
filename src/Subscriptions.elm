@@ -7,7 +7,7 @@ import WebSocket
 
 getApi : String
 getApi =
-    "api.alexrieux.fr"
+    "localhost:8002"
 
 
 subscriptions : State -> Sub Msg

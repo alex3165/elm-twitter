@@ -6,21 +6,6 @@ import Json.Decode exposing (Decoder, decodeString)
 import Serializer exposing (tweetDecoder)
 
 
--- defaultTweet : List Tweet
--- defaultTweet =
---     [{ id = "test"
---     , created_at = "test"
---     , description = "test"
---     , user =
---         { name = "test"
---         , screen_name = "test"
---         , profile_image_url_https = "test"
---         }
---     , retweet = Maybe.Nothing
---     , photos = Maybe.Nothing
---     }]
-
-
 update : Msg -> State -> ( State, Cmd Msg )
 update msg model =
     case msg of
@@ -32,7 +17,7 @@ update msg model =
                             ( { model | tweets = Just (val :: tweets) }, Cmd.none )
 
                         Nothing ->
-                            ( { model | tweets = Just [val]}, Cmd.none )
+                            ( { model | tweets = Just [ val ] }, Cmd.none )
 
                 Err err ->
                     ( model, Cmd.none )
