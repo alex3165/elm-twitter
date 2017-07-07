@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const listen = require('./server/tweetStreams');
+const { listen, listeners } = require('./server/tweetStreams');
 const normalizer = require('./server/normalizer');
 const http = require('http');
 const WebSocket = require('ws');
@@ -10,6 +10,13 @@ const PORT = 8002;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get('/test', (req, res) => {
+  const testTweet = require('./server/tweet.json');
+  listeners.forEach((listener) => listener(testTweet));
+
+  res.json({ message: 'Sent test tweet trough websocket' });
+});
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server, path: '/tweets' });

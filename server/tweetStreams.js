@@ -23,20 +23,23 @@ const tweets = new Twitter({
   access_token_secret: ACCESS_TOKEN_SECRET
 })
 
-const listeners = []
+const listeners = [];
 
-module.exports = function listen(listener) {
-  if (!listeners.length) {
-    tweets.stream('https://userstream.twitter.com/1.1/user.json', stream => {
-      stream.on('data', data => {
-        listeners.forEach(listener => listener(data))
+module.exports = {
+  listeners,
+  listen: (listener) => {
+    if (!listeners.length) {
+      tweets.stream('https://userstream.twitter.com/1.1/user.json', stream => {
+        stream.on('data', data => {
+          listeners.forEach(listener => listener(data))
+        })
+
+        stream.on('error', function(error) {
+          throw error;
+        });
       })
+    }
 
-      stream.on('error', function(error) {
-        throw error;
-      });
-    })
+    listeners.push(listener)
   }
-
-  listeners.push(listener)
-}
+};
