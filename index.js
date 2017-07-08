@@ -11,8 +11,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/test', (req, res) => {
-  const testTweet = require('./server/tweet.json');
+app.get('/test/:id', (req, res) => {
+  const param = req.param('id') || "";
+  const testTweet = require(`./server/tweet${param}.json`);
   listeners.forEach((listener) => listener(testTweet));
 
   res.json({ message: 'Sent test tweet trough websocket' });
