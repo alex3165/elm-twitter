@@ -1,10 +1,10 @@
 module Card exposing (..)
 
 import Model exposing (Tweet)
-import Html exposing (Html, div, text, img)
+import Html exposing (Html, div, text, img, span)
 import Message exposing (Msg)
 import Html.Attributes exposing (style, src)
-import Colors exposing (borderGrey)
+import Colors exposing (borderGrey, grey, sky, mint)
 
 
 containerStyle : List ( String, String )
@@ -58,9 +58,28 @@ tweetStyle =
     ]
 
 
+userNameStyle : List ( String, String )
+userNameStyle =
+    [ ( "color", grey )
+    ]
+
+
 avatarStyle : List ( String, String )
 avatarStyle =
     [ ( "margin", "0px" )
+    , ( "border-radius", "50%" )
+    ]
+
+
+linkStyle : List ( String, String )
+linkStyle =
+    [ ( "color", sky )
+    ]
+
+
+retweetStyle : List ( String, String )
+retweetStyle =
+    [ ( "color", mint )
     ]
 
 
@@ -71,6 +90,19 @@ avatar userImage =
         ]
 
 
+description : List String -> Html Msg
+description dList =
+    div [] <|
+        List.map
+            (\d ->
+                if (String.contains "http" d) then
+                    (span [ style linkStyle ] [ text d ])
+                else
+                    (span [] [ text d ])
+            )
+            dList
+
+
 card : Tweet -> Html Msg
 card tweet =
     div [ style containerStyle ]
@@ -79,21 +111,21 @@ card tweet =
             , div [ style tweetCardStyle ]
                 [ div [ style userStyle ]
                     [ div [] [ avatar tweet.user.profile_image_url_https ]
-                    , div [] [ text <| "@" ++ tweet.user.screen_name ]
+                    , div [ style userNameStyle ] [ text <| "@" ++ tweet.user.screen_name ]
                     ]
                 , div [ style tweetStyle ]
-                    [ div [] [ text tweet.description ]
+                    [ div [] [ description tweet.description ]
                     ]
                 ]
             ]
         , div []
-            [ div []
+            [ div [ style retweetStyle ]
                 [ case tweet.retweet of
                     Nothing ->
                         text ""
 
                     Just val ->
-                        text <| "Retweeted by: " ++ val.screen_name
+                        text <| "Retweeted by: " ++ "@" ++ val.screen_name
                 ]
             ]
         ]

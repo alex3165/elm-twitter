@@ -19,3 +19,8 @@ grey =
 borderGrey : String
 borderGrey =
     "#D7D7D7"
+
+
+sky : String
+sky =
+    "#4B96F8"

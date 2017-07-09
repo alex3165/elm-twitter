@@ -36,9 +36,10 @@ clients.forEach((client) => {
 
 listen((data) => {
   const normalizedData = normalizer(data);
+  console.log(data);
 
   clients.forEach((client) => {
-    console.log(client.readyState === WebSocket.OPEN, client.readyState);
+    // console.log(client.readyState === WebSocket.OPEN, client.readyState);
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(normalizedData));
     }
